@@ -13,11 +13,17 @@ def encrypt(message: bytes) -> bytes:
     """Encrypt a message using our encryption key."""
     # generate a random IV
     iv = secrets.token_bytes(16)
+    print(f'iv (hex): {iv.hex()}')
+
     aes = AES.new(encryption_key, AES.MODE_CBC, iv=iv)
     # pad the plaintext to a multiple of the AES block size
     plaintext = pad(message, 16)
+    print(f'plaintext: {plaintext}')
+
     # encrypt the padded plaintext
     ciphertext = aes.encrypt(plaintext)
+    print(f'ciphertext (hex): {ciphertext.hex()}')
+
     # return the iv concatenated to the ciphertext
     return iv + ciphertext
 
